@@ -10,7 +10,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-2016, macos-latest ]
+        os: [ ubuntu-latest, windows-2016, macos-latest, windows-2022 ]
         node: [ "12.0.0", "14.0.0", "15.0.0", "16.0.0", "17.0.0" ]
         task: [ test ]
 
@@ -25,6 +25,9 @@ jobs:
       - name: Configure msvs version on Windows
         if: ${{matrix.os == 'windows-2016'}}
         run: npm config set msvs_version 2017
+      - name: Configure msvs version on Windows
+        if: ${{matrix.os == 'windows-2022'}}
+        run: npm config set msvs_version 2022
       - name: Run tests
         env:
           OPENCV4NODEJS_DISABLE_AUTOBUILD: 1
